@@ -6,14 +6,11 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
 🧑‍💼 User roles: Job Seeker & Recruiter
 
-📝 Recruiters can post, update, and delete job listings
+📝 Recruiter can post, update, and delete job listings
 
 📋 Job seekers can browse, apply, and view applications
 
-📈 Application tracking with status updates
+📈 Application tracking 
 
 🛠 Admin features to manage users and applications
 
-🎨 Frontend with HTML, CSS, JavaScript
-
-🌐 Backend with Node.js, Express, and MongoDB
