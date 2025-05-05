@@ -25,3 +25,13 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
 # 📁 Project Structure
 ![image](https://github.com/user-attachments/assets/8d95b147-5a9a-4f00-a497-d185d2307af6)
+
+# ✅ Steps to Run the Project
+git clone https://github.com/Karanam-manasa/careerconnect.git  
+cd job/backend                                             
+npm install                                                
+node server.js
+
+# 🌐 Then open in browser
+http://localhost:3000
+
