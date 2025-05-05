@@ -24,7 +24,8 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 - **Other Tools** : Body-parser, CORS, Path, MongoDB Compass
 
 # 📁 Project Structure
-![image](https://github.com/user-attachments/assets/8d95b147-5a9a-4f00-a497-d185d2307af6)
+
+![image](https://github.com/user-attachments/assets/2f60bc5a-d1bb-4a13-93dc-fc0910bb405d)
 
 # ✅ Steps to Run the Project
 - git clone https://github.com/Karanam-manasa/careerconnect.git  
