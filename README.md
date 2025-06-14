@@ -9,7 +9,6 @@ CareerConnect is a full-stack web application designed to facilitate job listing
   - Job Poster
 
 📝 Admin Dashboard :
-
     - Create, update, delete, and **restore** job listings
     
     - Track the number of applications per job
@@ -19,7 +18,6 @@ CareerConnect is a full-stack web application designed to facilitate job listing
     - Manage all users and their applications
     
 📄  Job Seeker Dashboard:
-
     - Browse and apply for available jobs
     
     - View personal application history
@@ -27,7 +25,6 @@ CareerConnect is a full-stack web application designed to facilitate job listing
     - Access a curated list of **interview questions and answers**
     
 📊  Application Tracking:
-
     - Each job shows a count of how many applications it has received
     
 📧 **Email Confirmation** sent after successful registration
@@ -48,16 +45,16 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
 
 # ✅ Steps to Run the Project
-   **Clone the repository:** 
+   **Clone the repository :** 
       git clone https://github.com/Karanam-manasa/careerconnect.git
 
-   **Navigate to the backend folder:**
+   **Navigate to the backend folder :**
       cd careerconnect/backend
 
-   **Install dependencies:**
+   **Install dependencies :**
       npm install
 
-   **Start the server:**
+   **Start the server :**
       node server.js
 
 # 🌐 Open in Browser
