@@ -2,9 +2,11 @@
 CareerConnect is a full-stack web application designed to facilitate job listings and applications. This platform allows a admin to manage job postings and can monitor the entire system efficiently. while job seekers can browse available opportunities and submit applications. 
 
 # 🚀 Features
-🔐 User authentication (sign up and login)
+🔐 **User authentication**
+- sign up
+- login
 
-🧑‍💼 User roles: 
+🧑‍💼 **User roles**: 
   - Job Seeker
   - Job Poster
 
