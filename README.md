@@ -10,10 +10,13 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
 📝 Admin Dashboard :
 
-    - Create, update, delete, and **restore** job listings
-    - Track the number of applications per job
-    - View job seeker activity and **user history**
-    - Manage all users and their applications
+- Create, update, delete, and **restore** job listings
+     
+- Track the number of applications per job
+- 
+- View job seeker activity and **user history**
+  
+- Manage all users and their applications
     
 📄  Job Seeker Dashboard:
 
