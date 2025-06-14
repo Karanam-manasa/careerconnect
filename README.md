@@ -1,18 +1,23 @@
 # careerconnect
-CareerConnect is a full-stack web application designed to facilitate job listings and applications. This platform allows a recruiter to manage job postings, while job seekers can browse available opportunities and submit applications. 
+CareerConnect is a full-stack web application designed to facilitate job listings and applications. This platform allows a admin to manage job postings and can monitor the entire system efficiently. while job seekers can browse available opportunities and submit applications. 
 
 # 🚀 Features
 🔐 User authentication (sign up and login)
 
 🧑‍💼 User roles: Job Seeker & Recruiter
 
-📝 Recruiter can post, update, and delete job listings
-
-📋 Job seekers can browse, apply, and view applications
-
-📈 Application tracking 
-
-🛠 Admin features to manage users and applications
+📝 Admin Dashboard :
+  - Create, update, delete, and **restore** job listings
+  - Track the number of applications per job
+  - View job seeker activity and **user history**
+  - Manage all users and their applications
+📄  Job Seeker Dashboard:
+  - Browse and apply for available jobs
+  - View personal application history
+  - Access a curated list of **interview questions and answers**
+📊  Application Tracking:
+  - Each job shows a count of how many applications it has received
+📧 **Email Confirmation** sent after successful registration
 
 # 🗂 Tech Stack
 - *Frontend*: HTML, CSS, JavaScript
@@ -24,13 +29,21 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 - *Other Tools* : Body-parser, CORS, Path, MongoDB Compass
 
 # 📁 Project Structure
-![image](https://github.com/user-attachments/assets/2f60bc5a-d1bb-4a13-93dc-fc0910bb405d)
+![image](https://github.com/user-attachments/assets/20561a16-f23a-4594-8389-3bf976c6359c)
+
 
 # ✅ Steps to Run the Project
-- git clone https://github.com/Karanam-manasa/careerconnect.git  
-- cd job/backend                                             
-- npm install                                                
-- node server.js
+  # Clone the repository
+  git clone https://github.com/Karanam-manasa/careerconnect.git
 
-# 🌐 Then open in browser
-http://localhost:3000
+  # Navigate to the backend folder
+  cd careerconnect/backend
+
+  # Install dependencies
+  npm install
+
+  # Start the server
+  node server.js
+
+# 🌐 Open in Browser
+  Visit: http://localhost:3000
