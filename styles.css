@@ -1784,3 +1784,16 @@ footer {
     opacity: 1;
 }
 
+.otp-status {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.otp-status.success {
+  color: green;
+}
+
+.otp-status.error {
+  color: red;
+}
+
