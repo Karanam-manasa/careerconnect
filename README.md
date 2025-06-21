@@ -3,11 +3,11 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
 # 🚀 Features
 🔐 **User authentication**
-- sign up
-- login
+- Sign up with email verification
+- Login
 
 🧑‍💼 **User roles**: 
-  - Job Seeker
+  - Job Seekers
   - Job Poster
 
 📝 **Admin Dashboard** :
@@ -27,7 +27,17 @@ CareerConnect is a full-stack web application designed to facilitate job listing
 
   - Each job shows a count of how many applications it has received
     
-📧 **Email Confirmation** sent after successful registration
+📧 **Email Confirmation** :
+
+  - Confirmation email sent upon successful registration
+  - Ensures only valid users can access the platform
+
+
+## 🔑 Default Admin Credentials
+
+- **Email:** `careerconnect868@gmail.com`  
+- **Password:** `Admin@123`
+
 
 # 🗂 Tech Stack
 
@@ -57,5 +67,4 @@ CareerConnect is a full-stack web application designed to facilitate job listing
    **Start the server :**
       node server.js
 
-# 🌐 Open in Browser
-  Visit: http://127.0.0.1:5500/
+
