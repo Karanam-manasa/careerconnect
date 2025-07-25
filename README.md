@@ -10,8 +10,7 @@ The platform is built on the **MERN stack** (MongoDB, Express.js, React-like Van
 
 ### For Job Seekers (User Dashboard)
 *   **Personalized Dashboard:** A dynamic dashboard that displays "Top Matches" based on the user's skills.
-*   <!-- NEW -->
-    **Proactive Job Alerts:** Receive instant email notifications when a new job is posted that matches your skills, ensuring you never miss an opportunity.
+*   **Proactive Job Alerts:** Receive instant email notifications when a new job is posted that matches your skills, ensuring you never miss an opportunity.
 *   **Advanced Job Filtering:** Users can filter jobs by keywords (title, company, skills), location, job type, and date posted.
 *   **Interactive Job Cards:** Clean, attractive, and responsive job cards that provide key information at a glance.
 *   **Detailed Job View:** Click on any job to see a comprehensive description, including required skills, location, and application details.
@@ -71,7 +70,7 @@ The platform is built on the **MERN stack** (MongoDB, Express.js, React-like Van
 
 1.  **Clone the Repository:**
     ```bash
-    git clone https://github.com/your-username/careerconnect.git
+    git clone https://github.com/Karanam-manasa/careerconnect.git
     cd careerconnect
     ```
 
@@ -79,6 +78,7 @@ The platform is built on the **MERN stack** (MongoDB, Express.js, React-like Van
     Navigate to the root directory and install the required npm packages.
     ```bash
     npm install
+    npm install multer
     ```
 
 3.  **Configure Environment:**
@@ -99,16 +99,4 @@ The platform is built on the **MERN stack** (MongoDB, Express.js, React-like Van
 
 *   **Email:** `careerconnect868@gmail.com`
 *   **Password:** `Admin@123`
-_(These are hardcoded in `script.js` for demonstration purposes. For a production environment, this should be moved to a secure, database-driven authentication system.)_
 
----
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/your-username/careerconnect/issues).
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
