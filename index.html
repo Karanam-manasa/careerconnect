@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js" defer></script>
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
     <header>
@@ -140,6 +145,15 @@
                     <input type="email" id="signupEmail" placeholder="e.g.manasa@gmail.com" required>
                 </div>
                 <div class="form-group">
+                    <button type="button" id="sendOtpBtn">Send OTP</button>
+                    <input type="text" id="emailOtp" placeholder="Enter OTP" style="display:none;" />
+                    <button type="button" id="verifyOtpBtn" style="display:none;">Verify OTP</button>
+                    <p id="otpStatus" class="otp-status"></p>
+
+                </div>
+                
+
+                <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" placeholder="9182736450" required>
                     <p id="phoneError" style="color: red; font-size: 0.85rem;"></p>
@@ -219,9 +233,11 @@
                     <form id="createJobForm">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="jobTitle">Job Title</label>
-                                <input type="text" id="jobTitle" name="title" placeholder="e.g. Software Developer,Accountant" required autocomplete="off">
-                            </div>
+    <label for="jobTitleSelect">Job Title</label>
+    <select id="jobTitleSelect" name="title" class="dynamic-select" data-other-id="jobTitleOther" required>
+    </select>
+    <input type="text" id="jobTitleOther" class="other-input" placeholder="Please specify other job title" style="display: none; margin-top: 10px;">
+</div>
                             <div class="form-group">
                                 <label for="company">Company</label>
                                 <input type="text" id="company" name="company" placeholder="e.g. Google,Wipro" required autocomplete="off">
@@ -229,9 +245,12 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="location">Location</label>
-                                <input type="text" id="location" name="location" placeholder="e.g. Bangalore,Remote" required autocomplete="off">
-                            </div>
+    <label for="locationSelect">Location</label>
+    <select id="locationSelect" name="location" class="dynamic-select" data-other-id="locationOther" required>
+
+    </select>
+    <input type="text" id="locationOther" class="other-input" placeholder="Please specify other location" style="display: none; margin-top: 10px;">
+</div>
                             <div class="form-group">
                                 <label for="jobType">Job Type</label>
                                 <select id="jobType" name="jobType" required>
@@ -247,9 +266,12 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="jobCategory">Job Category</label>
-                            <input type="text" id="jobCategory" name="jobCategory" placeholder="e.g. Technology, Marketing" required autocomplete="off">
-                        </div>
+    <label for="jobCategorySelect">Job Category</label>
+    <select id="jobCategorySelect" name="jobCategory" class="dynamic-select" data-other-id="jobCategoryOther" required>
+
+    </select>
+    <input type="text" id="jobCategoryOther" class="other-input" placeholder="Please specify other category" style="display: none; margin-top: 10px;">
+</div>
                         
                         <div class="form-group">
                             <label for="jobDescription">Job Description</label>
@@ -258,7 +280,7 @@
                         
                         <div class="form-group">
                             <label for="qualifications">Required Qualifications/Skills</label>
-                            <textarea id="qualifications" name="qualifications" placeholder="e.g. JavaScript, React, Node.js, Git" rows="3" required></textarea>
+                            <select id="qualifications" name="qualifications" multiple required></select>
                         </div>
                         
                         <div class="form-row">
@@ -304,82 +326,30 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">Career<span>Connect</span> User</a>
-               <button id="userLogoutBtn" class="btn btn-outline">Logout</button>
-            </nav>
+    <a href="#" class="logo">Career<span>Connect</span></a>
+    <div class="auth-buttons">
+        <button id="userLogoutBtn" class="btn btn-outline">Logout</button>
+    </div>
+</nav>
         </div>
     </header>
 
     <div class="admin-container">
         <div class="admin-sidebar">
             <ul>
-                <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li class="active"><a href="#dashboard"><i class="fas fa-home"></i> Recommended</a></li>
                 <li><a href="#jobs"><i class="fas fa-briefcase"></i> View Jobs</a></li>
                 <li><a href="#applications"><i class="fas fa-file-alt"></i> My Applications</a></li>
                 <li><a href="#profile"><i class="fas fa-user"></i> Profile</a></li>
                 <li><a href="#interviewTips"><i class="fas fa-lightbulb"></i> Interview Tips</a></li>
             </ul>
         </div>
-
         <div class="admin-content">
             <h2>Welcome to your dashboard!</h2>
         </div>
     </div>
 </div>
 
-  <div id="jobForm" style="display: none; margin-top: 30px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-    <h2>Create Job Posting</h2>
-    <form id="createJobForm">
-        <div class="form-group">
-            <label for="jobTitle">Job Title</label>
-            <input type="text" id="jobTitle" name="jobTitle" placeholder="Job Title" required>
-        </div>
-        <div class="form-group">
-            <label for="company">Company</label>
-            <input type="text" id="company" name="company" placeholder="Company" required>
-        </div>
-        <div class="form-group">
-            <label for="location">Location</label>
-            <input type="text" id="location" name="location" placeholder="Location" required>
-        </div>
-        <div class="form-group">
-            <label for="jobType">Job Type</label>
-            <input type="text" id="jobType" name="jobType" placeholder="Job Type (e.g. Full-time)" required>
-        </div>
-        <div class="form-group">
-            <label for="jobCategory">Job Category</label>
-            <input type="text" id="jobCategory" name="jobCategory" placeholder="Job Category" required>
-        </div>
-        <div class="form-group">
-            <label for="jobDescription">Job Description</label>
-            <textarea id="jobDescription" name="jobDescription" placeholder="Job Description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="qualifications">Required Qualifications/Skills</label>
-            <textarea id="qualifications" name="qualifications" placeholder="Required Qualifications/Skills" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="salary">Salary / Stipend</label>
-            <input type="text" id="salary" name="salary" placeholder="Salary / Stipend">
-        </div>
-        <div class="form-group">
-            <label for="applicationDeadline">Application Deadline</label>
-                    <input type="date" id="applicationDeadline" name="applicationDeadline" required>
-                </div>
-                <div class="form-group">
-                    <label for="postingDate">Posting Date</label>
-                    <input type="date" id="postingDate" name="postingDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="applyLink">Link to Apply</label>
-                    <input type="url" id="applyLink" name="applyLink" placeholder="Link to Apply" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Submit</button>
-                <button type="button" id="cancelJobForm" class="btn btn-outline" style="margin-left: 10px;">Cancel</button>
-            </form>
-        </div>
-    </div>
-</div>
   
 <div id="statusModal" class="modal-overlay">
     <div class="auth-form" style="text-align: center;">
@@ -387,6 +357,14 @@
         <div style="margin-top: 20px;">
             <button id="statusYesBtn" class="btn btn-primary">Yes</button>
             <button id="statusNoBtn" class="btn btn-outline" style="margin-left: 10px;">No</button>
+        </div>
+    </div>
+</div>
+
+<div id="userDetailsModal" class="modal-overlay" style="display: none;">
+    <div class="user-details-modal-content">
+        <span id="closeUserDetailsModal" class="close-btn">×</span>
+        <div id="userDetailsContent">
         </div>
     </div>
 </div>
