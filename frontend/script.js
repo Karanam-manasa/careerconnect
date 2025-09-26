@@ -24,7 +24,7 @@ const cancelJobForm = document.getElementById('cancelJobForm');
 
 let selectedUserType = null;
 let editingJobId = null;
-const API_BASE_URL = 'http://127.0.0.1:5000/api';
+const API_BASE_URL = 'https://careerconnect-backendd.onrender.com/api';
 
 const allSkills = [
     'JavaScript', 'Python', 'Java', 'C++', 'C#', 'TypeScript', 'PHP', 'Ruby', 'Go', 'Swift', 'Kotlin', 'Rust',
@@ -1430,7 +1430,7 @@ if (userDashboardLink) {
 
 function renderUserProfile(userData) {
     const avatar = userData.profilePicture
-    ? `<img src="http://127.0.0.1:5000/uploads/resumes/${userData.profilePicture}?t=${new Date().getTime()}" alt="Profile Picture" class="profile-picture">`
+    ? `<img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.profilePicture}?t=${new Date().getTime()}" alt="Profile Picture" class="profile-picture">`
     : `<div class="profile-avatar"><i class="fas fa-user-circle"></i></div>`;
 
     const skillsHTML = userData.skills && userData.skills.length > 0
@@ -1438,8 +1438,7 @@ function renderUserProfile(userData) {
         : '<p class="no-data">No skills added yet.</p>';
 
     const resumeLink = userData.resume
-        ? `<a href="http://127.0.0.1:5000/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`
-        : '<p class="no-data">No resume uploaded.</p>';
+        ? `<a href="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`
     
     const educationHTML = userData.education && userData.education.length > 0
         ? userData.education.map(edu => `
@@ -1520,7 +1519,7 @@ function showEditProfileForm(user) {
     const educationBlocks = user.education && user.education.length > 0 ? user.education.map(createEducationBlock).join('') : createEducationBlock();
 
     const avatarEditHTML = user.profilePicture
-        ? `<img src="http://127.0.0.1:5000/uploads/resumes/${user.profilePicture}" alt="Profile Picture" class="profile-picture">`
+        ? `<img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.profilePicture}?t=${new Date().getTime()}" alt="Profile Picture" class="profile-picture">`
         : `<div class="profile-avatar"><i class="fas fa-user-circle"></i></div>`;
 
     userAdminContent.innerHTML = `
@@ -1702,7 +1701,7 @@ async function handleApply(jobId, applyLink) {
     }
     try {
         const job = await makeApiCall(`/jobs/${jobId}`, 'GET');
-        const applyRes = await fetch('http://localhost:5000/api/apply', {
+        const applyRes = await fetch(`${API_BASE_URL}/apply`,{
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1739,7 +1738,7 @@ async function handleApply(jobId, applyLink) {
                 userEmail: user.email,
                 status: 'Applied'
             });
-            const emailResponse = await fetch('http://localhost:5000/api/send-confirmation', {
+            const emailResponse = await fetch(`${API_BASE_URL}/send-confirmation`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1767,7 +1766,7 @@ async function handleApply(jobId, applyLink) {
                 userEmail: user.email,
                 status: 'Cancelled'
             });
-            await fetch('http://localhost:5000/api/send-confirmation', {
+            await fetch(`${API_BASE_URL}/send-confirmation`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -1895,7 +1894,7 @@ document.querySelector('a[href="#applications"]').addEventListener('click', asyn
 
                 const profilePicture = userApps[0].userProfilePicture;
                 const avatarHTML = profilePicture
-                    ? `<img src="http://127.0.0.1:5000/uploads/resumes/${profilePicture}" alt="Profile" class="user-history-avatar">`
+                    ? `<img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.profilePicture}" alt="Profile" class="user-history-avatar">`
                     : `<div class="job-icon" style="border-radius: 50%;"><i class="fas fa-user-circle"></i></div>`;
 
                 return `
@@ -2398,7 +2397,7 @@ async function showUserDetails(userId) {
     }
 
     const avatarHTML = userData.profilePicture
-        ? `<div class="user-details-avatar"><img src="http://127.0.0.1:5000/uploads/resumes/${userData.profilePicture}" alt="Profile"></div>`
+        ? `<div class="user-details-avatar"><img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.profilePicture}" alt="Profile"></div>`
         : `<div class="user-details-avatar"><i class="fas fa-user"></i></div>`;
 
     const skillsHTML = userData.skills && userData.skills.length > 0
@@ -2415,7 +2414,7 @@ async function showUserDetails(userId) {
         : '<p>No education details provided.</p>';
     
     const resumeLink = userData.resume 
-        ? `<a href="http://127.0.0.1:5000/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`
+        ? `<a href="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`
         : '<span>No resume uploaded.</span>';
 
     const linkedinLink = userData.linkedin
@@ -2477,6 +2476,7 @@ async function showUserDetails(userId) {
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', closeOnOverlay);
 }
+
 
 
 
