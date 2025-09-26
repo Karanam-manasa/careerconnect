@@ -14,7 +14,7 @@ const otpStore = {};
 const MONGODB_URI = process.env.MONGODB_URI;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL || 'http://localhost:3000';
+const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL || 'careerconnect-mocha.vercel.app';
 
 
 const uploadDir = path.join(__dirname, 'uploads/resumes');
@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors(
     {
-    origin: 'https://careerconnect-fzmeo8655-manasa-karanams-projects.vercel.app/',
+    origin: 'careerconnect-mocha.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
     credentials: true // 
 
