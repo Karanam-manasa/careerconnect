@@ -55,10 +55,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, 
     auth: {
-        user:  EMAIL_USER,
-        pass: EMAIL_PASS 
+        user: EMAIL_USER,
+        pass: EMAIL_PASS
+    },
+    tls: {
+        rejectUnauthorized: false
     }
 });
 
