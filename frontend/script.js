@@ -1438,7 +1438,7 @@ function renderUserProfile(userData) {
         : '<p class="no-data">No skills added yet.</p>';
 
     const resumeLink = userData.resume
-        ? `<a href="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`
+        ? `<a href="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.resume}" target="_blank">View Resume</a>`;
     
     const educationHTML = userData.education && userData.education.length > 0
         ? userData.education.map(edu => `
@@ -2476,6 +2476,7 @@ async function showUserDetails(userId) {
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', closeOnOverlay);
 }
+
 
 
 
