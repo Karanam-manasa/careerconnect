@@ -55,14 +55,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const transporter = nodemailer.createTransport({
-     host: 'smtp.sendgrid.net',
-     port: 465,
-     secure: true, 
-     auth: {
-         user: 'apikey',
-         pass: process.env.SENDGRID_API_KEY
-     }
- });
+  host: 'smtp.sendgrid.net',
+  port: 587,
+  secure: false,
+  auth: { user: 'apikey', pass: process.env.SENDGRID_API_KEY }
+});
+
 
 app.post('/api/send-confirmation', async (req, res) => {
     
