@@ -37,9 +37,12 @@ const upload = multer({ storage: storage });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(cors({
-    origin: VERCEL_FRONTEND_URL, // Allow only your Vercel frontend
-    credentials: true
+app.use(cors(
+    {
+    origin: 'https://careerconnect-mocha.vercel.app/',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
+    credentials: true // 
+
 }));
 
 // app.use(cors());
