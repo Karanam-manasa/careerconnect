@@ -39,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors(
     {
-    origin: 'https://careerconnect-mocha.vercel.app/',
+    origin: 'https://careerconnect-fzmeo8655-manasa-karanams-projects.vercel.app/',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
     credentials: true // 
 
