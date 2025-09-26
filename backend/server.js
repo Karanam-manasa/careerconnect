@@ -55,11 +55,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.sendgrid.net',
+  host: "smtp-relay.brevo.com",
   port: 587,
   secure: false,
-  auth: { user: 'apikey', pass: process.env.SENDGRID_API_KEY }
+  auth: {
+    user: process.env.BREVO_USER,   
+    pass: process.env.BREVO_PASS    
+  }
 });
+
 
 
 app.post('/api/send-confirmation', async (req, res) => {
