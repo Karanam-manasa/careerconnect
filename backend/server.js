@@ -55,15 +55,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: 'smtp.sendgrid.net', 
     port: 587,
     secure: false, 
     auth: {
-        user: EMAIL_USER,
-        pass: EMAIL_PASS
+        user: 'apikey', 
+        pass: process.env.SENDGRID_API_KEY 
     },
     tls: {
-        rejectUnauthorized: false
+        rejectUnauthorized: false 
     }
 });
 
