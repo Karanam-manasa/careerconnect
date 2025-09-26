@@ -53,17 +53,41 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 //     res.sendFile(path.join(__dirname, '..', 'index.html'));
 // });
 
-
-
 const transporter = nodemailer.createTransport({
-    host: 'smtp.sendgrid.net',
-    port: 465,
-    secure: true, 
-    auth: {
-        user: 'apikey',
-        pass: process.env.SENDGRID_API_KEY
-    }
+  host: "smtp.sendgrid.net",
+  port: 465,
+  secure: true,
+  auth: {
+    user: "apikey", // this must be literally the word "apikey"
+    pass: process.env.SENDGRID_API_KEY
+  }
 });
+
+const mailOptions = {
+  from: "careerconnect868@gmail.com", // must match the verified sender in SendGrid
+  to: email,
+  subject: "Your OTP Code - CareerConnect",
+  text: `Your OTP is: ${otp}. It will expire in 10 minutes.`,
+  html: `<p>Your OTP is: <b>${otp}</b></p><p>It will expire in 10 minutes.</p>`
+};
+
+try {
+  await transporter.sendMail(mailOptions);
+  console.log(`✅ OTP sent to ${email}`);
+} catch (err) {
+  console.error("❌ Error sending OTP:", err.response || err);
+}
+
+
+// const transporter = nodemailer.createTransport({
+//     host: 'smtp.sendgrid.net',
+//     port: 465,
+//     secure: true, 
+//     auth: {
+//         user: 'apikey',
+//         pass: process.env.SENDGRID_API_KEY
+//     }
+// });
 
 app.post('/api/send-confirmation', async (req, res) => {
     
