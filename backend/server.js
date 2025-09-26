@@ -27,11 +27,11 @@ const upload = multer({ storage: storage });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(cors());
-app.use(express.static(path.join(__dirname, '..')));
+// app.use(express.static(path.join(__dirname, '..')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'index.html'));
+// });
 
 
 const transporter = nodemailer.createTransport({
@@ -111,9 +111,9 @@ app.get("/jobs/:jobId", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "job.html"));
   });
 
-mongoose.connect('mongodb://localhost:27017/careerconnect', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+await mongoose.connect(process.env.MONGODB_URI, {
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true
 })
 .then(() => console.log('✅ Connected to MongoDB'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
