@@ -1520,7 +1520,7 @@ function showEditProfileForm(user) {
     const educationBlocks = user.education && user.education.length > 0 ? user.education.map(createEducationBlock).join('') : createEducationBlock();
 
     const avatarEditHTML = user.profilePicture
-        ? `<img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${userData.profilePicture}?t=${new Date().getTime()}" alt="Profile Picture" class="profile-picture">`
+        ? `<img src="${API_BASE_URL.replace('/api', '')}/uploads/resumes/${user.profilePicture}?t=${new Date().getTime()}" alt="Profile Picture" class="profile-picture">`
         : `<div class="profile-avatar"><i class="fas fa-user-circle"></i></div>`;
 
     userAdminContent.innerHTML = `
@@ -2477,6 +2477,7 @@ async function showUserDetails(userId) {
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', closeOnOverlay);
 }
+
 
 
 
