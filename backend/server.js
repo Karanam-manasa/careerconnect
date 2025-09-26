@@ -14,7 +14,7 @@ const otpStore = {};
 const MONGODB_URI = process.env.MONGODB_URI;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
-const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL || 'careerconnect-mocha.vercel.app';
+const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL;
 
 
 const uploadDir = path.join(__dirname, 'uploads/resumes');
@@ -37,7 +37,13 @@ const upload = multer({ storage: storage });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(cors());
+app.use(cors(
+    {
+    origin: 'https://careerconnect-mocha.vercel.app', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true
+}));
+
 
 // app.use(cors());
 //  app.use(express.static(path.join(__dirname, '..')));
