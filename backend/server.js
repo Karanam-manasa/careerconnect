@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -8,6 +9,14 @@ const multer = require('multer');
 const fs = require('fs');
 const app = express();
 const otpStore = {};
+
+
+const MONGODB_URI = process.env.MONGODB_URI;
+const EMAIL_USER = process.env.EMAIL_USER;
+const EMAIL_PASS = process.env.EMAIL_PASS;
+const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL || 'http://localhost:3000';
+
+
 const uploadDir = path.join(__dirname, 'uploads/resumes');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
@@ -24,11 +33,19 @@ const storage = multer.diskStorage({
     }
 });
 const upload = multer({ storage: storage });
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(cors());
-// app.use(express.static(path.join(__dirname, '..')));
+
+app.use(cors({
+    origin: VERCEL_FRONTEND_URL, // Allow only your Vercel frontend
+    credentials: true
+}));
+
+// app.use(cors());
+//  app.use(express.static(path.join(__dirname, '..')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, '..', 'index.html'));
 // });
@@ -37,8 +54,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'careerconnect868@gmail.com',
-        pass: 'ggkk xkhk xbid xyvv' 
+        user:  EMAIL_USER,
+        pass: EMAIL_PASS 
     }
 });
 
@@ -107,9 +124,9 @@ app.post('/api/send-confirmation', async (req, res) => {
     }
 });
 
-app.get("/jobs/:jobId", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "job.html"));
-  });
+// app.get("/jobs/:jobId", (req, res) => {
+//     res.sendFile(path.join(__dirname, "public", "job.html"));
+//   });
 
 await mongoose.connect(process.env.MONGODB_URI, {
     // useNewUrlParser: true,
@@ -711,3 +728,22 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
+
+
+const PORT = process.env.PORT || 5000; // Use process.env.PORT if available (Render provides this)
+
+async function startServer() {
+    try {
+        await mongoose.connect(MONGODB_URI); // Use MONGODB_URI from env
+        console.log('✅ Connected to MongoDB');
+
+        app.listen(PORT, () => {
+            console.log(`🚀 Server running on port ${PORT}`);
+        });
+    } catch (err) {
+        console.error('❌ Failed to connect to MongoDB and start server:', err);
+        process.exit(1); // Exit with failure
+    }
+}
+
+startServer();
