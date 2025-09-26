@@ -17,6 +17,17 @@ const EMAIL_PASS = process.env.EMAIL_PASS;
 const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL;
 
 
+
+const SibApiV3Sdk = require("sib-api-v3-sdk");
+
+let defaultClient = SibApiV3Sdk.ApiClient.instance;
+let apiKey = defaultClient.authentications["api-key"];
+apiKey.apiKey = process.env.BREVO_API_KEY;
+
+const brevo = new SibApiV3Sdk.TransactionalEmailsApi();
+
+
+
 const uploadDir = path.join(__dirname, 'uploads/resumes');
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });
@@ -54,15 +65,15 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // });
 
 
-const transporter = nodemailer.createTransport({
-  host: "smtp-relay.brevo.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_USER,   
-    pass: process.env.BREVO_PASS    
-  }
-});
+// const transporter = nodemailer.createTransport({
+//   host: "smtp-relay.brevo.com",
+//   port: 587,
+//   secure: false,
+//   auth: {
+//     user: process.env.BREVO_USER,   
+//     pass: process.env.BREVO_PASS    
+//   }
+// });
 
 
 
@@ -123,7 +134,12 @@ app.post('/api/send-confirmation', async (req, res) => {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
+        await brevo.sendTransacEmail({
+  sender: { email: "careerconnect868@gmail.com", name: "CareerConnect" },
+  to: [{ email: userEmail }],
+  subject: subject,
+  htmlContent: htmlContent,
+});
         res.status(200).json({ message: 'Confirmation email sent successfully.' });
     } catch (error) {
         console.error('Email send error:', error);
@@ -202,7 +218,13 @@ async function sendJobAlerts(newJob) {
                 };
 
                 try {
-                    await transporter.sendMail(mailOptions);
+                    await brevo.sendTransacEmail({
+  sender: { email: "careerconnect868@gmail.com", name: "CareerConnect" },
+  to: [{ email: user.email }],
+  subject: `✨ New Job Opportunity Matching Your Skills: ${newJob.title}`,
+  htmlContent: mailOptions.html,
+});
+
                     
                 } catch (emailError) {
                     console.error(`[❌] Failed to send job alert to ${user.email}:`, emailError);
@@ -707,7 +729,13 @@ app.post('/api/send-otp', async (req, res) => {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
+       await brevo.sendTransacEmail({
+  sender: { email: "careerconnect868@gmail.com", name: "CareerConnect" },
+  to: [{ email }],
+  subject: 'CareerConnect Email Verification OTP',
+  htmlContent: `<p>Your OTP for email verification is: <strong>${otp}</strong></p>`,
+});
+
         res.status(200).json({ message: 'OTP sent' });
 
     } catch (err) {
