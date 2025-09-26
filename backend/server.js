@@ -37,13 +37,7 @@ const upload = multer({ storage: storage });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 
-app.use(cors(
-    {
-    origin: 'careerconnect-ccpvbqgsi-manasa-karanams-projects.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
-    credentials: true // 
-
-}));
+app.use(cors());
 
 // app.use(cors());
 //  app.use(express.static(path.join(__dirname, '..')));
