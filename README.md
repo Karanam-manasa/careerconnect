@@ -100,3 +100,6 @@ The platform is built on the **MERN stack** (MongoDB, Express.js, React-like Van
 *   **Email:** `careerconnect868@gmail.com`
 *   **Password:** `Admin@123`
 
+## 🌐 Links
+
+- **Deployed Project:** [CareerConnect Live](https://careerconnect-mocha.vercel.app/)
