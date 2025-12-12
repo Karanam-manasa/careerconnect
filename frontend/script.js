@@ -24,7 +24,7 @@ const cancelJobForm = document.getElementById('cancelJobForm');
 
 let selectedUserType = null;
 let editingJobId = null;
-const API_BASE_URL = 'https://careerconnect-backendd.onrender.com/api';
+const API_BASE_URL = 'https://careerconnect-backendd.onrender.com';
 
 const allSkills = [
     'JavaScript', 'Python', 'Java', 'C++', 'C#', 'TypeScript', 'PHP', 'Ruby', 'Go', 'Swift', 'Kotlin', 'Rust',
@@ -2477,6 +2477,7 @@ async function showUserDetails(userId) {
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', closeOnOverlay);
 }
+
 
 
 
