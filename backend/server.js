@@ -313,7 +313,7 @@ const Application = mongoose.model('Application', new mongoose.Schema({
   company: { type: String },    
   userEmail: { type: String, required: true },
   appliedAt: { type: Date, default: Date.now },
-  status: { type: String, default: 'Applied', enum: ['Applied', 'Cancelled'] } 
+  status: { type: String, default: 'Applied', enum: ['Applied', 'Cancelled','Clicked'] } 
 }));
 
 app.post('/signup', async (req, res) => {
