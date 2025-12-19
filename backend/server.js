@@ -514,10 +514,13 @@ const { ObjectId } = require('mongodb');
 app.post('/apply/:jobId', async (req, res) => {
   const jobId = req.params.jobId;
   try {
-    const result = await db.collection('jobs').updateOne(
-      { _id: new ObjectId(jobId) },
-      { $inc: { applicationCount: 1 } }
+    const result = await Job.findByIdAndUpdate(
+      jobId,
+      { $inc: { applicationCount: 1 } },
+      { new: true }
     );
+    
+    if (!result) return res.status(404).send({ success: false, message: "Job not found" });
     res.status(200).send({ success: true });
   } catch (err) {
     console.error('Error updating application count:', err);
