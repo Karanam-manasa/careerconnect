@@ -766,7 +766,7 @@ app.post('/verify-otp', (req, res) => {
 // });
 
 
-const PORT = process.env.PORT || 5000; // Use process.env.PORT if available (Render provides this)
+
 
 async function startServer() {
     try {
