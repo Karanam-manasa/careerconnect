@@ -1747,7 +1747,8 @@ async function handleApply(jobId, applyLink) {
                         userName: user.username,
                         jobTitle: job.title,
                         company: job.company,
-                        status: 'Applied'
+                        status: 'Applied',
+                        jobId: jobId
                     })
                 }).then(res => res.json());
 
@@ -1757,6 +1758,7 @@ async function handleApply(jobId, applyLink) {
                 } else {
                     alert("✅ Application confirmed! Check your email.");
                     cleanUp();
+                    document.querySelector('#userDashboard a[href="#applications"]').click();
                 }
                 modal.classList.remove('active');
             };
@@ -1775,11 +1777,13 @@ async function handleApply(jobId, applyLink) {
                         userName: user.username,
                         jobTitle: job.title,
                         company: job.company,
-                        status: 'Cancelled'
+                        status: 'Cancelled',
+                         jobId: jobId
                     })
                 });
                 alert("Application status marked as 'Cancelled'");
                 cleanUp();
+        document.querySelector('#userDashboard a[href="#applications"]').click();
             };
         }, 1000);
 
