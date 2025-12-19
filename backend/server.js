@@ -187,6 +187,7 @@ async function sendJobAlerts(newJob) {
             );
 
             if (userMatchedSkills.length > 0) {
+                const frontendUrl = "https://careerconnect-mocha.vercel.app";
                 const mailOptions = {
                     from: 'CareerConnect <careerconnect868@gmail.com>',
                     to: user.email,
@@ -207,7 +208,7 @@ async function sendJobAlerts(newJob) {
                                 <h4 style="color: #2ecc71;">Your Matching Skills:</h4>
                                 <p style="font-size: 1.1em; font-weight: bold;">${userMatchedSkills.join(', ')}</p>
                             </div>
-const frontendUrl = "https://careerconnect-mocha.vercel.app";
+
 <a href="${frontendUrl}/?job=${newJob._id}" style="display: inline-block; margin-top: 25px; padding: 12px 25px; background-color: #4a6bff; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">View Job & Apply Now</a>
                             
                             <p style="margin-top: 30px; font-size: 0.9em; color: #777;">
