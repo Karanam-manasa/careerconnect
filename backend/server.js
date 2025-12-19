@@ -79,7 +79,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.post('/send-confirmation', async (req, res) => {
     
-    const { userEmail, userName, jobTitle, company, status } = req.body; 
+    const { userEmail, userName, jobTitle, company, status, jobId } = req.body; 
 
     let subject = '';
     let htmlContent = '';
