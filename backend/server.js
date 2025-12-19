@@ -11,7 +11,17 @@ const app = express();
 const otpStore = {};
 
 
+app.use(cors({
+    origin: ['https://careerconnect-mocha.vercel.app', 'http://127.0.0.1:5500', 'http://localhost:5500'], 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    credentials: true
+}));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
+
 const MONGODB_URI = process.env.MONGODB_URI;
+const PORT = process.env.PORT || 5000;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
 const VERCEL_FRONTEND_URL = process.env.VERCEL_FRONTEND_URL;
@@ -45,16 +55,6 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
-
-app.use(cors(
-    {
-    origin: 'https://careerconnect-mocha.vercel.app', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    credentials: true
-}));
-
 
 // app.use(cors());
 //  app.use(express.static(path.join(__dirname, '..')));
@@ -77,7 +77,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 
-app.post('/api/send-confirmation', async (req, res) => {
+app.post('/send-confirmation', async (req, res) => {
     
     const { userEmail, userName, jobTitle, company, status } = req.body; 
 
@@ -207,7 +207,8 @@ async function sendJobAlerts(newJob) {
                                 <h4 style="color: #2ecc71;">Your Matching Skills:</h4>
                                 <p style="font-size: 1.1em; font-weight: bold;">${userMatchedSkills.join(', ')}</p>
                             </div>
-<a href="http://127.0.0.1:5000/?job=${newJob._id}" style="display: inline-block; margin-top: 25px; padding: 12px 25px; background-color: #4a6bff; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">View Job & Apply Now</a>
+const frontendUrl = "https://careerconnect-mocha.vercel.app";
+<a href="${frontendUrl}/?job=${newJob._id}" style="display: inline-block; margin-top: 25px; padding: 12px 25px; background-color: #4a6bff; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold;">View Job & Apply Now</a>
                             
                             <p style="margin-top: 30px; font-size: 0.9em; color: #777;">
                                 Good luck with your application!<br>
@@ -307,7 +308,7 @@ const Application = mongoose.model('Application', new mongoose.Schema({
   status: { type: String, default: 'Clicked', enum: ['Clicked', 'Applied', 'Cancelled'] }
 }));
 
-app.post('/api/signup', async (req, res) => {
+app.post('/signup', async (req, res) => {
     try {
         const { username, email, phone, userType, password, confirmPassword } = req.body;
         if (password !== confirmPassword) {
@@ -325,7 +326,7 @@ app.post('/api/signup', async (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -345,7 +346,7 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
-app.post('/api/jobs', async (req, res) => {
+app.post('/jobs', async (req, res) => {
     try {
         const { title, company, location, jobType, jobCategory, qualifications, salary, applicationDeadline, applyLink, description, postedBy } = req.body;
         if (!title || !company || !location || !jobType || !jobCategory || !qualifications || !salary || !applicationDeadline || !applyLink || !description || !postedBy) {
@@ -362,7 +363,7 @@ app.post('/api/jobs', async (req, res) => {
     }
 });
 
-app.get('/api/jobs', async (req, res) => {
+app.get('/jobs', async (req, res) => {
     try {
         const jobs = await Job.find().sort({ datePosted: -1 });
         res.json(jobs);
@@ -371,7 +372,7 @@ app.get('/api/jobs', async (req, res) => {
     }
 });
 
-app.get('/api/jobs/:id', async (req, res) => {
+app.get('/jobs/:id', async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
         if (!job) {
@@ -383,7 +384,7 @@ app.get('/api/jobs/:id', async (req, res) => {
     }
 });
 
-app.put('/api/jobs/:id', async (req, res) => {
+app.put('/jobs/:id', async (req, res) => {
     try {
         const { title, company, location, jobType, jobCategory, description, qualifications, salary, applicationDeadline, postingDate, applyLink, postedBy } = req.body;
          const skillsArray = qualifications ? qualifications.split(',').map(s => s.trim()) : [];
@@ -410,7 +411,7 @@ app.put('/api/jobs/:id', async (req, res) => {
     }
 });
 
-app.delete('/api/jobs/:id', async (req, res) => {
+app.delete('/jobs/:id', async (req, res) => {
     try {
         const job = await Job.findById(req.params.id);
         if (!job) return res.status(404).json({ error: 'Job not found' });
@@ -424,7 +425,7 @@ app.delete('/api/jobs/:id', async (req, res) => {
     }
 });
 
-app.get('/api/deleted-jobs', async (req, res) => {
+app.get('/deleted-jobs', async (req, res) => {
     try {
         const deletedJobs = await DeletedJob.find().sort({ deletedAt: -1 });
         res.json(deletedJobs);
@@ -433,7 +434,7 @@ app.get('/api/deleted-jobs', async (req, res) => {
     }
 });
 
-app.post('/api/deleted-jobs/:id/restore', async (req, res) => {
+app.post('/deleted-jobs/:id/restore', async (req, res) => {
     try {
         const deletedJob = await DeletedJob.findById(req.params.id);
         if (!deletedJob) {
@@ -472,7 +473,7 @@ app.post('/api/deleted-jobs/:id/restore', async (req, res) => {
     }
 });
 
-app.post('/api/apply', async (req, res) => {
+app.post('/apply', async (req, res) => {
     try {
         const { jobId, userEmail, status } = req.body;
         if (!jobId || !userEmail) {
@@ -523,7 +524,7 @@ app.post('/apply/:jobId', async (req, res) => {
   }
 });
 
-app.get('/api/applications', async (req, res) => {
+app.get('/applications', async (req, res) => {
   try {
     const applications = await Application.find()
       .populate('jobId', 'title company applicationDeadline') 
@@ -544,7 +545,7 @@ app.get('/api/applications', async (req, res) => {
   }
 });
 
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
     try {
         const users = await User.find().select('-password');
         res.json(users);
@@ -553,7 +554,7 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-app.get('/api/users/:id', async (req, res) => {
+app.get('/users/:id', async (req, res) => {
     try {
         const user = await User.findById(req.params.id).select('-password');
         if (!user) {
@@ -565,7 +566,7 @@ app.get('/api/users/:id', async (req, res) => {
     }
 });
 
-app.put('/api/users/:id', upload.fields([{ name: 'profilePicture', maxCount: 1 }, { name: 'resume', maxCount: 1 }]), async (req, res) => {
+app.put('/users/:id', upload.fields([{ name: 'profilePicture', maxCount: 1 }, { name: 'resume', maxCount: 1 }]), async (req, res) => {
     try {
         const { fullName, phone, userType, skills, linkedin, portfolio, education, deleteProfilePicture } = req.body;
         const updateData = {
@@ -626,7 +627,7 @@ app.put('/api/users/:id', upload.fields([{ name: 'profilePicture', maxCount: 1 }
     }
 });
 
-app.post('/api/users/:id/reset-password', async (req, res) => {
+app.post('/users/:id/reset-password', async (req, res) => {
     try {
         const { newPassword } = req.body;
         const user = await User.findById(req.params.id);
@@ -641,7 +642,7 @@ app.post('/api/users/:id/reset-password', async (req, res) => {
     }
 });
 
-app.delete('/api/users/:id', async (req, res) => {
+app.delete('/users/:id', async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);
         if (!deletedUser) {
@@ -653,7 +654,7 @@ app.delete('/api/users/:id', async (req, res) => {
     }
 });
 
-app.post('/api/apply/update-status', async (req, res) => {
+app.post('/apply/update-status', async (req, res) => {
     const { jobId, userEmail, status } = req.body;
     try {
         const application = await Application.findOneAndUpdate(
@@ -673,7 +674,7 @@ app.post('/api/apply/update-status', async (req, res) => {
 
 
 
-app.get('/api/applications/:email', async (req, res) => {
+app.get('/applications/:email', async (req, res) => {
     try {
         
         const applications = await Application.find({ userEmail: req.params.email }).populate('jobId');
@@ -695,7 +696,7 @@ app.get('/api/applications/:email', async (req, res) => {
 });
 
 
-app.get('/api/applications/stats/:email', async (req, res) => {
+app.get('/applications/stats/:email', async (req, res) => {
     try {
         const userEmail = req.params.email;
         const stats = await Application.aggregate([
@@ -713,7 +714,7 @@ app.get('/api/applications/stats/:email', async (req, res) => {
     }
 });
 
-app.post('/api/send-otp', async (req, res) => {
+app.post('/send-otp', async (req, res) => {
     const { email } = req.body;
     console.log('🔔 Received OTP request for:', email);
     const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit
@@ -745,7 +746,7 @@ app.post('/api/send-otp', async (req, res) => {
 });
 
 
-app.post('/api/verify-otp', (req, res) => {
+app.post('/verify-otp', (req, res) => {
     const { email, otp } = req.body;
     const record = otpStore[email];
 
