@@ -134,6 +134,13 @@ app.post('/send-confirmation', async (req, res) => {
     };
 
     try {
+        if (jobId) {
+            await Application.findOneAndUpdate(
+                { jobId: jobId, userEmail: userEmail },
+                { status: status }, // status will be 'Applied' or 'Cancelled'
+                { upsert: true }
+            );
+        }
         await brevo.sendTransacEmail({
   sender: { email: "careerconnect868@gmail.com", name: "CareerConnect" },
   to: [{ email: userEmail }],
@@ -306,7 +313,7 @@ const Application = mongoose.model('Application', new mongoose.Schema({
   company: { type: String },    
   userEmail: { type: String, required: true },
   appliedAt: { type: Date, default: Date.now },
-  status: { type: String, default: 'Clicked', enum: ['Clicked', 'Applied', 'Cancelled'] }
+  status: { type: String, default: 'Applied', enum: ['Applied', 'Cancelled'] } 
 }));
 
 app.post('/signup', async (req, res) => {
@@ -482,14 +489,11 @@ app.post('/apply', async (req, res) => {
         }
         const existing = await Application.findOne({ jobId, userEmail });
         if (existing) {
-            if (existing.status === 'Cancelled') {
-                existing.status = status || 'Clicked';
-                existing.appliedAt = new Date();
-                await existing.save();
-                return res.status(200).json({ message: 'Re-application successful', application: existing });
-            } else {
-                return res.status(400).json({ error: 'You have already applied for this job' });
-            }
+            // If it exists, update the status to whatever is passed (Applied or Cancelled)
+            existing.status = status || 'Applied'; 
+            existing.appliedAt = new Date();
+            await existing.save();
+            return res.status(200).json({ message: 'Application updated', application: existing });
         }
 
 const job = await Job.findById(jobId);
@@ -499,7 +503,7 @@ const application = new Application({
     userEmail,
     jobTitle: job.title,      
     company: job.company,    
-    status: status || 'Clicked'
+    status: status || 'Applied'
 });
         await application.save();
         await Job.findByIdAndUpdate(jobId, { $inc: { applicationCount: 1 } });
